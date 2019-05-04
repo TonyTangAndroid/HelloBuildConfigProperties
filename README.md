@@ -13,3 +13,6 @@ The second value is defined by your system environment variable, which is usuall
 (Example)
 
 So it is the third.
+
+
+The code is defined in ```build.gradle``` under `app` module
