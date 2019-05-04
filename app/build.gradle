@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+
+//Example 1 from System env :
+//String value from mac System env, which could be define with export statement in `bash.profile` or
+// whatever your system environment profile.
+//For example, `export MAVEN_URL=https://jitpack.io`.
+//If it is not defined, then it will fallback to default value, which is 'https://maven.google.com'.
+def mavenUrl = (System.env.MAVEN_URL != null ? System.env.MAVEN_URL : 'https://maven.google.com')
+
+//Example 2 from System env :
+//Boolean value from mac System env, which could be define with export statement in `bash.profile` or
+// whatever your system environment profile.
+//For example, `export FORCE_DISABLE_LEAK_CANARY=true`
+//If it is not defined, then it will fallback to default value, which is false.
+def forceDisableLeakCanary = (System.env.FORCE_DISABLE_LEAK_CANARY != null ? System.env.FORCE_DISABLE_LEAK_CANARY : "false")
+
+//Example from gradle.properties or command line param specified with '-P'
+def dynamicValue = project.hasProperty('dynamic') ? project.dynamic : 'false'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId 'com.example.gradle.properties'
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName '1.0'
+        buildConfigField "String", "MAVEN_URL", "\"${mavenUrl}\""
+        buildConfigField "boolean", "FORCE_DISABLE_LEAK_CANARY", "${forceDisableLeakCanary}"
+        buildConfigField "boolean", "DYNAMIC_VALUE", "${dynamicValue}"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+}

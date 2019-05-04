@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">Hello Gradle Properties</string>
+  <string name="explain">The first value is defined by gradle command line param, which could specify the value through -P. You could run command \n\n./gradlew :app:installDebug -Pdynamic=true \n\nto try it out. \n\nThe second value is defined by your system environment variable, which is usually defined in .bash_profile or .zsh_rc. \n\nexport MAVEN_URL=https://jitpack.io\n\nSo it is the third.</string>
+</resources>
